@@ -5,7 +5,6 @@ const commandLineArgs = require('command-line-args');
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
-const download = require('image-downloader');
 const https = require('https');
 
 const options = commandLineArgs(require('./options'), { stopAtFirstUnknown: true });
@@ -49,19 +48,6 @@ let amountOfPages = 0;
 let intervalId = -1;
 
 async function downloadPicture(url, filename, folder) {
-    // download.image({
-    //     url: url,
-    //     dest: path.join(filename, folder),
-    //     timeout: 30000
-    // })
-    //     .then(({filename}) => {
-    //         (v)?console.log('\rDownloaded:', url, '| Saved to:', filename):'';
-    //         downloaded++;
-    //     })
-    //     .then((err) => {
-    //         console.error('ERROR: Couldn\'t download / Save', url);
-    //         downloaded++;
-    //     });
     let file = fs.createWriteStream(path.join(folder, filename));
     https.get(url, (res) => {
         res.pipe(file)
