@@ -51,40 +51,44 @@ async function downloadPicture(url, filename, folder) {
     
     let isJpg = false;
     https.get(url+'.jpg', (res) => {
-        if (res.headers["content-type"]=="image/jpeg") isJpg = true;
+        if (res.headers["content-type"].includes("image/jpeg")) isJpg = true;
+
+        res.on("data", c => {});
+
+        res.on("end", () => {
+            if (isJpg) {
+                let file = fs.createWriteStream(path.join(folder, filename+'.jpg'));
+                https.get(url+'.jpg', (res) => {
+                    res.pipe(file)
+        
+                    res.on("end", () => {
+                        (v)?console.log('\rDownloaded:', url, '| Saved to:', path.join(folder, filename+".jpg")):'';
+                        downloaded++;
+                    })
+        
+                    res.on("error", () => {
+                        console.error('ERROR: Couldn\'t download / Save', url);
+                        downloaded++;
+                    })
+                })
+            } else {
+                let file = fs.createWriteStream(path.join(folder, filename+'.png'));
+                https.get(url+'.png', (res) => {
+                    res.pipe(file)
+        
+                    res.on("end", () => {
+                        (v)?console.log('\rDownloaded:', url, '| Saved to:', path.join(folder, filename+'.png')):'';
+                        downloaded++;
+                    })
+        
+                    res.on("error", () => {
+                        console.error('ERROR: Couldn\'t download / Save', url);
+                        downloaded++;
+                    })
+                })
+            }
+        })
     })
-
-    if (isJpg) {
-        let file = fs.createWriteStream(path.join(folder, filename+'.jpg'));
-        https.get(url+'.jpg', (res) => {
-            res.pipe(file)
-
-            res.on("end", () => {
-                (v)?console.log('\rDownloaded:', url, '| Saved to:', path.join(folder, filename)):'';
-                downloaded++;
-            })
-
-            res.on("error", () => {
-                console.error('ERROR: Couldn\'t download / Save', url);
-                downloaded++;
-            })
-        })
-    } else {
-        let file = fs.createWriteStream(path.join(folder, filename+'.png'));
-        https.get(url+'.png', (res) => {
-            res.pipe(file)
-
-            res.on("end", () => {
-                (v)?console.log('\rDownloaded:', url, '| Saved to:', path.join(folder, filename+'.png')):'';
-                downloaded++;
-            })
-
-            res.on("error", () => {
-                console.error('ERROR: Couldn\'t download / Save', url);
-                downloaded++;
-            })
-        })
-    }
 }
 
 fetch(mainUrl)
@@ -101,7 +105,7 @@ fetch(mainUrl)
         console.log('Downloading...');
         for (let i=0; i<amountOfPages; i++) {
             let url = `https://i.nhentai.net/galleries/${galleryID}/${i+1}`;
-            setTimeout(()=>{downloadPicture(url, `${i+1}`, f)},i*500);
+            setTimeout(()=>{downloadPicture(url, `${i+1}`, f)},i*300);
         }
         
         intervalId = setInterval(()=>{
