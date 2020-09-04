@@ -3,9 +3,10 @@
 const cheerio = require('cheerio');
 const commandLineArgs = require('command-line-args');
 const fetch = require('node-fetch');
-const https = require('https');
 const fs = require('fs');
 const path = require('path');
+const download = require('image-downloader');
+const https = require('https');
 
 const options = commandLineArgs(require('./options'), { stopAtFirstUnknown: true });
 const argv = options._unknown || [];
@@ -48,23 +49,30 @@ let amountOfPages = 0;
 let intervalId = -1;
 
 async function downloadPicture(url, filename, folder) {
-    https.get(url, res => {
-        let data = "";
+    // download.image({
+    //     url: url,
+    //     dest: path.join(filename, folder),
+    //     timeout: 30000
+    // })
+    //     .then(({filename}) => {
+    //         (v)?console.log('\rDownloaded:', url, '| Saved to:', filename):'';
+    //         downloaded++;
+    //     })
+    //     .then((err) => {
+    //         console.error('ERROR: Couldn\'t download / Save', url);
+    //         downloaded++;
+    //     });
+    let file = fs.createWriteStream(path.join(folder, filename));
+    https.get(url, (res) => {
+        res.pipe(file)
 
-        res.on('data', c => {
-            data+=c;
+        res.on("end", () => {
+            (v)?console.log('\rDownloaded:', url, '| Saved to:', path.join(folder, filename)):'';
+            downloaded++;
         })
 
-        res.on('end', () => {
-            fs.writeFile(path.join(folder, filename), data, (err) =>  {
-                (v)?console.log('\rDownloaded:', url, '| Saved to:', path.join(folder, filename)):'';
-                if (err) console.error('ERROR: Saving File', url);
-                downloaded++;
-            });
-        })
-
-        res.on('error', () => {
-            console.error('ERROR: Couldn\'t download', url);
+        res.on("error", () => {
+            console.error('ERROR: Couldn\'t download / Save', url);
             downloaded++;
         })
     })
@@ -84,7 +92,7 @@ fetch(mainUrl)
         console.log('Downloading...');
         for (let i=0; i<amountOfPages; i++) {
             let url = `https://i.nhentai.net/galleries/${galleryID}/${i+1}.jpg`;
-            downloadPicture(url, `${i+1}.jpg`, f);
+            setTimeout(()=>{downloadPicture(url, `${i+1}.jpg`, f)},i*500);
         }
         
         intervalId = setInterval(()=>{
