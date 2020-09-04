@@ -52,7 +52,6 @@ async function downloadPicture(url, filename, folder) {
     let isJpg = false;
     https.get(url+'.jpg', (res) => {
         if (res.headers["content-type"]=="image/jpeg") isJpg = true;
-        break;
     })
 
     if (isJpg) {
