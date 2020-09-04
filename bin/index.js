@@ -48,20 +48,44 @@ let amountOfPages = 0;
 let intervalId = -1;
 
 async function downloadPicture(url, filename, folder) {
-    let file = fs.createWriteStream(path.join(folder, filename));
-    https.get(url, (res) => {
-        res.pipe(file)
-
-        res.on("end", () => {
-            (v)?console.log('\rDownloaded:', url, '| Saved to:', path.join(folder, filename)):'';
-            downloaded++;
-        })
-
-        res.on("error", () => {
-            console.error('ERROR: Couldn\'t download / Save', url);
-            downloaded++;
-        })
+    
+    let isJpg = false;
+    https.get(url+'.jpg', (res) => {
+        if (res.headers["content-type"]=="image/jpeg") isJpg = true;
+        break;
     })
+
+    if (isJpg) {
+        let file = fs.createWriteStream(path.join(folder, filename+'.jpg'));
+        https.get(url+'.jpg', (res) => {
+            res.pipe(file)
+
+            res.on("end", () => {
+                (v)?console.log('\rDownloaded:', url, '| Saved to:', path.join(folder, filename)):'';
+                downloaded++;
+            })
+
+            res.on("error", () => {
+                console.error('ERROR: Couldn\'t download / Save', url);
+                downloaded++;
+            })
+        })
+    } else {
+        let file = fs.createWriteStream(path.join(folder, filename+'.png'));
+        https.get(url+'.png', (res) => {
+            res.pipe(file)
+
+            res.on("end", () => {
+                (v)?console.log('\rDownloaded:', url, '| Saved to:', path.join(folder, filename+'.png')):'';
+                downloaded++;
+            })
+
+            res.on("error", () => {
+                console.error('ERROR: Couldn\'t download / Save', url);
+                downloaded++;
+            })
+        })
+    }
 }
 
 fetch(mainUrl)
@@ -77,8 +101,8 @@ fetch(mainUrl)
         fs.mkdirSync(f);
         console.log('Downloading...');
         for (let i=0; i<amountOfPages; i++) {
-            let url = `https://i.nhentai.net/galleries/${galleryID}/${i+1}.jpg`;
-            setTimeout(()=>{downloadPicture(url, `${i+1}.jpg`, f)},i*500);
+            let url = `https://i.nhentai.net/galleries/${galleryID}/${i+1}`;
+            setTimeout(()=>{downloadPicture(url, `${i+1}`, f)},i*500);
         }
         
         intervalId = setInterval(()=>{
