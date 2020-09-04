@@ -29,7 +29,7 @@ switch (options.command) {
 console.log('====================\nnHentai Download CLI\n====================');
 if (!otherOptions.id) {console.error('Error: '); process.exit(2)}
 const v = otherOptions.verbose;
-const f = otherOptions.folder || path.join(__dirname, otherOptions.id);
+const f = otherOptions.folder || path.join(process.cwd(), otherOptions.id);
 if (fs.existsSync(f)) {
     (v)?console.log('Deleting existing folder...'):'';
     let content = fs.readdirSync(f);
