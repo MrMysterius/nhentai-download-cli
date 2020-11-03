@@ -1,6 +1,7 @@
 # nHentai Download CLI
 
 This is a cli with wich you can simply download hentai, doujinshi and manga from nHentai
+Made by [Mr Mysterius](https://github.com/MrMysterius)
 
 ## Installation
 
