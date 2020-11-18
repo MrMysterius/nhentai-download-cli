@@ -94,14 +94,22 @@ async function downloadPicture(url, filename, folder) {
 fetch(mainUrl)
     .then(res => res.text())
     .then(body => {
-        let $ = cheerio.load(body);
-        (v)?console.log('Title:',$('title').text()):'';
+        const $ = cheerio.load(body);
+        const info = {};
+
         const pages = $('.thumbs .thumb-container').toArray();
         amountOfPages = pages.length;
+        
         const galleryID = pages[0].children[0].children[0].attribs['data-src'].match(new RegExp('(?<=https:\\/\\/t.nhentai.net\\/galleries\\/)\\d+'))[0];
+
+        (v)?console.log('Title:',$('title').text()):'';
+        info.title = $('title').text();
         (v)?console.log('Pages:', amountOfPages):'';
+        info.pages = amountOfPages;
         (v)?console.log('Gallery ID:', galleryID):'';
+        info.gallery_id = galleryID;
         fs.mkdirSync(f);
+
         console.log('Downloading...');
         for (let i=0; i<amountOfPages; i++) {
             let url = `https://i.nhentai.net/galleries/${galleryID}/${i+1}`;
