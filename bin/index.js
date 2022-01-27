@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 const commandLineArgs = require("command-line-args");
+const fs = require("fs");
+const path = require("path");
 const { startDownload } = require("./download/start");
 const { getInfos } = require("./infos/get");
 
