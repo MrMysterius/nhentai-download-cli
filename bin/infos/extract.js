@@ -6,9 +6,9 @@ async function extractInfos(data) {
 
   const details = {
     title: {
-      before: $("h1.title > .before")[0].children[0].data,
-      pretty: $("h1.title > .pretty")[0].children[0].data,
-      after: $("h1.title > .after")[0].children[0].data,
+      before: $("h1.title > .before")?.[0]?.children?.[0]?.data,
+      pretty: $("h1.title > .pretty")?.[0]?.children?.[0]?.data,
+      after: $("h1.title > .after")?.[0]?.children?.[0]?.data,
     },
     gallery_id: undefined,
   };
