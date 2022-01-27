@@ -4,12 +4,12 @@
   "description": "Download an nHentai dojin/manga/whatever by its id",
   "main": "bin/index.js",
   "dependencies": {
+    "axios": "^0.25.0",
     "cheerio": "^1.0.0-rc.3",
     "command-line-args": "^5.1.1",
     "https": "^1.0.0",
     "node-fetch": "^2.6.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
