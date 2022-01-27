@@ -1,6 +1,6 @@
 module.exports = [
-    {
-        name: "command",
-        defaultOption: true
-    }
-]
+  {
+    name: "command",
+    defaultOption: true,
+  },
+];
