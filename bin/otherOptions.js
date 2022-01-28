@@ -14,4 +14,9 @@ module.exports = [
     alias: "f",
     type: String,
   },
+  {
+    name: "compress",
+    alias: "c",
+    type: Boolean,
+  },
 ];

@@ -1,6 +1,6 @@
 const { download } = require("./download");
 
-async function startDownload(id, page_count, folder_path) {
+async function startDownload(id, page_count, folder_path, options) {
   const base_url = `https://i.nhentai.net/galleries/${id}`;
 
   const promises = [];

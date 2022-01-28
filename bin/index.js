@@ -47,7 +47,7 @@ const mainUrl = `https://nhentai.net/g/${otherOptions.id}`;
 verbose ? console.log("URL:", mainUrl) : "";
 
 getInfos(mainUrl, otherOptions, (infos, folder_path) => {
-  startDownload(infos?.gallery_id || process.exit(11), infos?.pages?.[0] || process.exit(12), folder_path);
+  startDownload(infos?.gallery_id || process.exit(11), infos?.pages?.[0] || process.exit(12), folder_path, otherOptions);
 });
 
 process.on("beforeExit", () => {
