@@ -4,6 +4,7 @@
   "description": "Download an nHentai dojin/manga/whatever by its id",
   "main": "bin/index.js",
   "dependencies": {
+    "7zip-min": "^1.4.1",
     "axios": "^0.25.0",
     "cheerio": "^1.0.0-rc.3",
     "command-line-args": "^5.1.1",
