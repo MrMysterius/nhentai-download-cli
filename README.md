@@ -24,3 +24,5 @@ Args
 - `--verbose` | `-v` Tell the cli to be a bit more verbose.
 
 - `--folder <path-to-saving-location>`  | `-f <path-to-saving-location>`
+
+- `--compress` | `-c` For compressing the files to a 7zip archive name `.cb7` for use in Kavita
