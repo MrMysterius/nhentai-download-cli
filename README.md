@@ -3,7 +3,7 @@
 This is a cli with wich you can simply download hentai, doujinshi and manga from nHentai
 Made by [Mr Mysterius](https://github.com/MrMysterius)
 
-Also generates a `ComicInfo.xml` ([anansi-project/comicinfo](https://github.com/anansi-project/comicinfo)) with Metadata to use in [Kavita](https://github.com/Kareadita/Kavita) for example.
+Also generates a [`ComicInfo.xml` (anansi-project/comicinfo)](https://github.com/anansi-project/comicinfo) with Metadata to use in [Kavita](https://github.com/Kareadita/Kavita) for example.
 
 ## Installation
 
