@@ -25,4 +25,4 @@ Args
 
 - `--folder <path-to-saving-location>`  | `-f <path-to-saving-location>`
 
-- `--compress` | `-c` For compressing the files to a 7zip archive name `.cb7` for use in Kavita
+- `--compress` | `-c` For compressing the files to a 7zip archive named `.cb7` for use in Kavita
