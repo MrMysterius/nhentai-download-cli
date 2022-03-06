@@ -19,6 +19,7 @@ async function startDownload(id, page_count, folder_path, options) {
   _7z.pack(folder_path, path.join(process.cwd(), `${options.id}.7z`), (err) => {
     if (err) throw err;
     fs.renameSync(path.join(process.cwd(), `${options.id}.7z`), path.join(process.cwd(), `${options.id}.cb7`));
+    fs.rm(folder_path, { recursive: true });
   });
 }
 
