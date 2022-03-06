@@ -1,6 +1,6 @@
 {
   "name": "nhentai-download-cli",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Download an nHentai dojin/manga/whatever by its id",
   "main": "bin/index.js",
   "dependencies": {
