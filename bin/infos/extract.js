@@ -14,8 +14,8 @@ async function extractInfos(data) {
   };
 
   const gallery_id = $("#thumbnail-container .thumbs")[0].children?.[0]?.children?.[0]?.children?.[0]?.attribs["data-src"].match(
-    /(?<=https:\/\/t.nhentai.net\/galleries\/)\d+/
-  )?.[0];
+    /https:\/\/t[2-9]{0,1}.nhentai.net\/galleries\/(\d+)/
+  )?.[1];
   details.gallery_id = gallery_id;
 
   const tag_containers = await $("section#tags").children(".tag-container");
