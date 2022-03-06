@@ -31,7 +31,7 @@ async function extractInfos(data) {
       let value = name?.children?.[0]?.data;
 
       if (!value) continue;
-      details[`${key}`].push(value);
+      details[`${key}`].push(value.replace("&", "&amp;"));
     }
   }
 
